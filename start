@@ -1,22 +1,21 @@
-1#!/usr/bin/env bash
-#S I L E N T 
-pushd () {
-    command pushd "$@" > /dev/null
-}
+#!/usr/bin/env bash
 
-popd () {
-    command popd "$@" > /dev/null
-}
-pactl () {
-    command pactl "$@" > /dev/null
-}
-ipup () {
-    command ipup "$@" > /dev/null
-}
-ipdown () {
-    command ipdown "$@" > /dev/null
-}
+#pushd () {
+#    command pushd "$@" > /dev/null
+#}
 
+#popd () {
+#    command popd "$@" > /dev/null
+#}
+#pactl () {
+#    command pactl "$@" > /dev/null
+#}
+#ipup () {
+#    command ipup "$@" > /dev/null
+#}
+#ipdown () {
+#    command ipdown "$@" > /dev/null
+#}
 
 # Basic load anim
 spin[0]="-"
