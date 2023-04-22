@@ -1,0 +1,145 @@
+#!/usr/bin/env bash
+#pushd () {
+#    command pushd "$@" > /dev/null
+#}
+
+#git () {
+#    command git "$@" > /dev/null
+#}
+
+#mv () {
+#    command mv "$@" > /dev/null
+#}
+
+#mkdir () {
+#    command mkdir "$@" > /dev/null
+#}
+
+# Basic load anim
+spin[0]="-"
+spin[1]="\\"
+spin[2]="|"
+spin[3]="/"
+clear
+
+pushd /tmp/
+git clone https://github.com/qtTF2/catwire
+
+clear
+echo -e -n "\e[92mCatwire \e[96m0.5.3 \033[0mInstaller"
+echo
+echo
+echo -e -n "[\033[1;33mWAIT\033[0m] Cloning \033[1;34mCatwire\033[0m... ${spin[0]}"
+  for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+
+echo
+
+echo -e -n "[\033[0;32mOK\033[0m] Cloning \033[1;34mCatwire\033[0m.. ${spin[0]}"
+  for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+
+echo
+
+pushd /home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel
+mkdir backup
+mv /home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel/public/ /home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel/backup/public
+cd /home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel/forever
+mv /home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel/forever/bot.js /home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel/backup/forever
+cd /home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel
+mv /home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel/auth.js /home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel/backup/
+mv /home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel/run.sh /home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel/backup/
+
+popd
+echo -e -n "[\033[1;33mWAIT\033[0m] Backup original \033[1;34mCathook IPC \033[0mfiles... ${spin[0]}"
+  for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+
+echo
+
+echo -e -n "[\033[0;32mOK\033[0m] Backup original \033[1;34mCathook IPC \033[0mfiles.... ${spin[0]}"
+  for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+
+echo
+
+pushd /home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel
+mkdir public
+echo -e -n "[\033[1;33mWAIT\033[0m] Creating missing \033[1;34m/home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel/public\033[0m... ${spin[0]}"
+  for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+
+echo  
+echo -e -n "[\033[0;32mOK\033[0m] Creating missing \033[1;34m/home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel/public\033[0m... ${spin[0]}"
+cd /tmp/catwire
+mv * /home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel/public
+echo
+echo -e -n "[\033[1;33mWAIT\033[0m] Moving items from \033[1;34m/tmp/catwire \033[0mto \033[1;34m/home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel/public\033[0m... ${spin[0]}"
+  for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+  echo
+  echo -e -n "[\033[0;32mOK\033[0m] Moving items from \033[1;34m/tmp/catwire \033[0mto \033[1;34m/home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel/public\033[0m... ${spin[0]}"
+  for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+
+echo
+rm -rf /tmp/catwire
+pushd /tmp/
+git clone -b cathook-fix https://github.com/qtTF2/catwire
+cd /tmp/catwire
+rm -rf README.md
+cd /tmp/catwire/cathook-ipc-web-panel/
+mv * /home/$USER/Desktop/catbot-setup/
+echo -e -n "[\033[1;33mWAIT\033[0m] Patching \033[1;34mserver\033[0m... ${spin[0]}"
+  for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+  
+echo
+echo -e -n "[\033[0;32mOK\033[0m] Patching \033[1;34mserver\033[0m... ${spin[0]}"
+  for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+ 
+echo
+echo -e -n "[\033[1;33mWAIT\033[0m] Confirming status \033[1;34mINSTALLED\033[0m... ${spin[0]}"
+ for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+  echo
+  echo -e -n "[\033[0;32mOK\033[0m] Confirming status \033[1;34mINSTALLED\033[0m... ${spin[0]}"
+  for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+  echo
+echo -e -n "[\033[0;32mOK\033[0m] \033[1;34mCatwire \033[0mhas successfully installed on your system." 
+echo 
