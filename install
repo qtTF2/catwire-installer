@@ -22,7 +22,7 @@ spin[2]="|"
 spin[3]="/"
 clear
 
-pushd /tmp/
+pushd /tmp
 git clone https://github.com/qtTF2/catwire
 
 clear
@@ -56,7 +56,6 @@ cd /home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel
 mv /home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel/auth.js /home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel/backup/
 mv /home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel/run.sh /home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel/backup/
 
-popd
 echo -e -n "[\033[1;33mWAIT\033[0m] Backup original \033[1;34mCathook IPC \033[0mfiles... ${spin[0]}"
   for i in "${spin[@]}"
   do
@@ -105,7 +104,7 @@ echo -e -n "[\033[1;33mWAIT\033[0m] Moving items from \033[1;34m/tmp/catwire \03
 
 echo
 rm -rf /tmp/catwire
-pushd /tmp/
+pushd /tmp
 git clone -b cathook-fix https://github.com/qtTF2/catwire
 cd /tmp/catwire
 rm -rf README.md
@@ -142,4 +141,4 @@ echo -e -n "[\033[1;33mWAIT\033[0m] Confirming status \033[1;34mINSTALLED\033[0m
   done
   echo
 echo -e -n "[\033[0;32mOK\033[0m] \033[1;34mCatwire \033[0mhas successfully installed on your system." 
-echo 
+echo
