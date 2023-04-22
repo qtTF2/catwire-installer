@@ -1,0 +1,185 @@
+1#!/usr/bin/env bash
+#S I L E N T 
+pushd () {
+    command pushd "$@" > /dev/null
+}
+
+popd () {
+    command popd "$@" > /dev/null
+}
+pactl () {
+    command pactl "$@" > /dev/null
+}
+ipup () {
+    command ipup "$@" > /dev/null
+}
+ipdown () {
+    command ipdown "$@" > /dev/null
+}
+
+
+# Basic load anim
+spin[0]="-"
+spin[1]="\\"
+spin[2]="|"
+spin[3]="/"
+clear
+[[ ! -z "$SUDO_USER" ]] && RUNUSER="$SUDO_USER" || RUNUSER="$LOGNAME"
+RUNCMD="sudo -u $RUNUSER"
+
+
+if [ $EUID == 0 ]; then
+      echo -e "[\033[1;31mERROR\033[0m] This script should not be run as \033[1;34mroot\033[0m!"
+    exit
+fi
+
+pactl load-module module-null-sink sink_name=Source
+pactl load-module module-virtual-source source_name=VirtualMic master=Source.monitor
+clear
+echo -e -n "\e[92mCathook IPC \e[96m0.5.3 \033[0mis starting up \e[94mCatbot (x86_64)\033[0m"
+echo
+echo
+echo -e -n "[\033[1;33mWAIT\033[0m] Creating \033[1;34mVirtual Microphone \033[0mdevice for mic spamming... ${spin[0]}"
+  for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+
+echo
+
+echo -e -n "[\033[0;32mOK\033[0m] Creating \033[1;34mVirtual Microphone \033[0mdevice for mic spamming... ${spin[0]}"
+  for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+
+echo
+sudo mkdir -p /opt/steamapps
+echo -e -n "[\033[1;33mWAIT\033[0m] Creating \033[1;34m/opt/steamapps\033[0m... ${spin[0]}"
+  for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+
+echo  
+echo -e -n "[\033[0;32mOK\033[0m] Creating \033[1;34m/opt/steamapps\033[0m... ${spin[0]}"
+mountpoint -q /opt/steamapps || sudo mount --bind ~/.steam/steam/steamapps/ /opt/steamapps
+echo
+echo -e -n "[\033[1;33mWAIT\033[0m] Mounting \033[1;34m/home/$USER/.steam/steam/steamapps/ \033[0mto \033[1;34m/opt/steamapps\033[0m... ${spin[0]}"
+  for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+  echo
+  echo -e -n "[\033[0;32mOK\033[0m] Mounting \033[1;34m/home/$USER/.steam/steam/steamapps/ \033[0mto \033[1;34m/opt/steamapps\033[0m... ${spin[0]}"
+  for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+
+echo
+echo -e -n "[\033[1;33mWAIT\033[0m] Starting \033[1;34mCathook IPC\033[0m... ${spin[0]}"
+  for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+  ipcserver=$( ps faux | grep '/opt/cathook/ipc/bin/server' | grep -vw grep | awk '{ print $2 }' );
+[ -z "$ipcserver" ] && /opt/cathook/ipc/bin/server -s >/dev/null &
+[ -z "$ipcserver" ] && echo $! >/tmp/cat-ipc-server.pid
+
+if [ -e "/tmp/ncat-cathook-webpanel.pid" ] && ps -p `cat "/tmp/ncat-cathook-webpanel.pid"` >/dev/null; then
+    echo -e -n "[\033[1;31mERROR\033[0m] Cathook IPC panel is already running."
+else
+    pushd /home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel
+    sudo PATH="$PATH" STEAM_LD_PRELOAD="$(cd ../ && pwd)/just-disable-vac/build/bin64/libvpcfs.so.0:$(cd ../ && pwd)/just-disable-vac/build/bin32/libvpcfs.so.0" bash ./run.sh &
+    popd
+fi
+echo
+echo -e -n "[\033[0;32mOK\033[0m] Starting \033[1;34mCathook IPC\033[0m... ${spin[0]}"
+  for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+  echo
+echo -e -n "[\033[1;33mWAIT\033[0m] Starting \033[1;34mnullnexus-proxy\033[0m... ${spin[0]}"
+  for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+pushd /home/$USER/Desktop/catbot-setup/nullnexus-proxy
+PATH="$PATH" pm2 -s start index.js
+popd
+
+if [ -x "$(command -v pulseaudio)" ]; then
+    echo -e -n "[\033[1;33mWAIT\033[0m] Setting up \033[1;34mPulseaudio \033[0msocket... ${spin[0]}"
+      for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+    pulse=$(pgrep -u "$USER" pulseaudio);
+    ([ ! -z "$pulse" ]) && pulseaudio --start &>/dev/null &
+    pactl load-module module-native-protocol-unix auth-anonymous=1 socket=/tmp/pulse.sock > /tmp/pulsemodule.id
+fi
+echo
+echo
+echo -e -n "[\033[0;32mOK\033[0m] Setting up \033[1;34mPulseaudio \033[0msocket... ${spin[0]}"
+      for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+ 
+ echo
+ echo
+ echo -e -n "[\033[0;32mOK\033[0m] Setting up \033[1;34mPulseaudio \033[0msocket... ${spin[0]}"
+      for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+ 
+ echo
+ echo
+ sudo chmod 700 /opt/steamapps/common/Team\ Fortress\ 2/tf/glshaders.cfg  
+echo -e -n "[\033[1;33mWAIT\033[0m] Fixing \033[1;34mOpenGL shaders \033[0m(NVIDIA GPU crash fix)... ${spin[0]}"
+      for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done 
+echo
+echo
+echo -e -n "[\033[0;32mOK\033[0m] Fixing \033[1;34mOpenGL shaders \033[0m(NVIDIA GPU crash fix)... ${spin[0]}"
+      for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done 
+echo  
+echo
+    echo -e -n "[\033[1;33mWAIT\033[0m] Waiting for \033[1;34mIPC password\033[0m... ${spin[0]}"
+      for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+  echo
+  echo
+echo -e -n "[\033[0;32mOK\033[0m] Waiting for \033[1;34mIPC password\033[0m... ${spin[0]}"
+      for i in "${spin[@]}"
+  do
+        echo -ne "\b$i"
+        sleep 0.1
+  done
+  echo
+  echo
+echo -e -n "[\033[0;32mOK\033[0m] \033[1;34mIPC \033[0mpassword: `cat /tmp/cat-webpanel-password`"  
