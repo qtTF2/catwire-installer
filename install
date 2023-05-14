@@ -109,7 +109,7 @@ git clone -b cathook-fix https://github.com/qtTF2/catwire
 cd /tmp/catwire
 rm -rf README.md
 cd /tmp/catwire/cathook-ipc-web-panel/
-mv * /home/$USER/Desktop/catbot-setup/
+mv * /home/$USER/Desktop/catbot-setup/cathook-ipc-web-panel/ 
 echo -e -n "[\033[1;33mWAIT\033[0m] Patching \033[1;34mserver\033[0m... ${spin[0]}"
   for i in "${spin[@]}"
   do
